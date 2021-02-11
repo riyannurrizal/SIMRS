@@ -6,9 +6,6 @@
 
     <div class="row">
         <div class="col-lg">
-
-
-
             <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahgelarModal"><i class="fa fa-plus"></i>Tambah Gelar</button>
 
             <table class=" table table-hover table-bordered table-sm">
@@ -47,10 +44,6 @@
 </div>
 <!-- End of Main Content -->
 
-
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="tambahgelarModal" tabindex="-1" aria-labelledby="tambahgelarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -66,7 +59,8 @@
                     <div class="form-group row">
                         <label for="judul" class="col-sm-4 col-form-label">Title</label>
                         <div class="col-4">
-                            <input type="text" class="form-control" id="judul" name="judul">
+                            <input type="text" class="form-control" id="judul" name="judul" value="<?= set_value('judul'); ?>">
+                            <?= form_error('judul', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -76,7 +70,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="statusaktif">Status Aktif</label>
-                            <input class="form-check-input col-9" type="checkbox" value="true" id="statusaktif" name="statusaktif" checked <?= set_checkbox('statusaktif', '1'); ?>>
+                            <input class="form-check-input col-9" type="checkbox" value="1" id="statusaktif" name="statusaktif" checked <?= set_checkbox('statusaktif', '1'); ?>>
 
                         </div>
                     </div>

@@ -20,18 +20,38 @@ class Admin extends CI_Controller
             'StatusEnabled' => '1'
         );
 
+        $this->form_validation->set_rules('judul', 'NamaTitle', 'trim|required');
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('admin/index', $data);
             $this->load->view('templates/footer');
-        } else
-            $this->db->insert('Title', ['NamaTitle' => $this->input->post('judul')]);
-        $this->db->insert('Title', ['StatusEnabled' => $this->input->post('statusaktif')]);
+        } else {
+            $stsaktif   =  $this->input->post('statusaktif');
 
+            if ($stsaktif  != '1') {
+                $stsaktif   = '0';
+            }
 
-        // var_dump();
-        // die;
+            $query = $this->db->query("SELECT MAX(KdTitle) as max_id FROM Title");
+            $row = $query->row_array();
+            $max_id = $row['max_id'];
+            //$max_id1 = (int) substr($max_id, 1, 2);
+            $max_id1 = (int) $max_id;
+            $kdtitle = $max_id1 + 1;
+
+            $data = array(
+                'NamaTitle' => $this->input->post('judul'),
+                'StatusEnabled' => $stsaktif,
+                'KdTitle' => $kdtitle,
+                'KodeExternal' => '',
+                'NamaExternal' => ''
+            );
+
+            $this->db->insert('Title', $data);
+
+            redirect('admin');
+        }
     }
 }
