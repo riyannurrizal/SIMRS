@@ -32,7 +32,7 @@
 
                                         <div class="form-group">
                                             <select name="ruangan" class='form-control'>
-                                                <option>- Pilih Ruangan -</option>
+                                                <option value="0">- Pilih Ruangan -</option>
                                                 <?php foreach ($ruangan as $key) { ?>
                                                     <option value="<?php echo $key->KdRuangan ?>"><?php echo $key->NamaRuangan ?> </option>
                                                 <?php } ?>
