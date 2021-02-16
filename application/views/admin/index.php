@@ -6,6 +6,11 @@
 
     <div class="row">
         <div class="col-lg">
+
+
+            <?= $this->session->flashdata('message2'); ?>
+
+
             <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahgelarModal"><i class="fa fa-plus"></i>Tambah Gelar</button>
 
             <table class=" table table-hover table-bordered table-sm">
@@ -28,8 +33,11 @@
                             <td><?= $glr['NamaExternal']; ?></td>
                             <td><?= $glr['StatusEnabled']; ?></td>
                             <td>
-                                <a href="" class="badge-success">Edit</a>
-                                <a href="" class="badge-danger">Delete</a>
+                                <a href="<?= base_url('admin/hapus/') ?><?= $glr['KdTitle'] ?>" type="hidden" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">
+                                    <i class="fa fa-trash"></i></a>
+
+                                <a href="<?= base_url('admin/edit/') ?><?= $glr['KdTitle'] ?>" class=" btn btn-success btn-sm d-inline">
+                                    <i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -45,7 +53,7 @@
 <!-- End of Main Content -->
 
 <!-- Modal -->
-<div class="modal fade" id="tambahgelarModal" tabindex="-1" aria-labelledby="tambahgelarModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahgelarModal" tabindex="-1" aria-labelledby="tambahgelarModalLabel" aria-hidden="true" name="tambahgelarModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -60,7 +68,7 @@
                         <label for="judul" class="col-sm-4 col-form-label">Title</label>
                         <div class="col-4">
                             <input type="text" class="form-control" id="judul" name="judul" value="<?= set_value('judul'); ?>">
-                            <?= form_error('judul', '<small class="text-danger pl-3">', '</small>'); ?>
+
                         </div>
                     </div>
                     <div class="form-group row">
@@ -87,6 +95,7 @@
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

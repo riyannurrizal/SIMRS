@@ -3,6 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+    //constructor
+    public function __construct()
+    {
+        parent::__construct();
+        // Load Model
+        $this->load->model('m_title');
+    }
+
     public function index()
     {
         $data['title'] = 'Master Gelar';
@@ -12,6 +20,8 @@ class Admin extends CI_Controller
 
         $data['gelar'] = $this->db->get('Title')->result_array();
 
+
+
         $array = array(
             'KdTitle'   => 'KdTitle',
             'NamaTitle' => 'judul',
@@ -20,13 +30,17 @@ class Admin extends CI_Controller
             'StatusEnabled' => '1'
         );
 
-        $this->form_validation->set_rules('judul', 'NamaTitle', 'trim|required');
+        $this->form_validation->set_rules('judul', 'Nama Title', 'trim|required');
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('admin/index', $data);
             $this->load->view('templates/footer');
+
+
+            $this->session->set_flashdata('message1', '<div class="alert alert-danger" 
+            role="alert">Silahkan Isi Nama Title </div>');
         } else {
             $stsaktif   =  $this->input->post('statusaktif');
 
@@ -50,8 +64,39 @@ class Admin extends CI_Controller
             );
 
             $this->db->insert('Title', $data);
-
+            $this->session->set_flashdata('message2', '<div class="alert alert-success" 
+            role="alert">Berhasil Menambahkan Title </div>');
             redirect('admin');
         }
+    }
+    public function update()
+    {
+        $id['KdTitle'] = $this->input->post("e_title");
+        $data = array(
+
+            'NamaTitle'         => $this->input->post("e_namatitle"),
+            'KodeExternal'      => $this->input->post("e_kodeexternal"),
+            'NamaExternal'      => $this->input->post("e_namaexternal"),
+
+        );
+    }
+    public function edit($editkdtitle)
+    {
+        $data1['title'] = 'Edit Title';
+        $editkdtitle = $this->uri->segment(3);
+        $data = array(
+            'gelar' => $this->m_title->edit($editkdtitle),
+
+        );
+        $this->load->view('templates/header', $data1);
+        $this->load->view('admin/edit_title', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function hapus($kdtitle)
+    {
+        $kodetitle['KdTitle'] = $this->uri->segment(3);
+        $this->m_title->hapus($kodetitle);
+        redirect('admin');
     }
 }
