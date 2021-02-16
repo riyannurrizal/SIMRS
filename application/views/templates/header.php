@@ -27,7 +27,7 @@
 </head>
 
 <body id="page-top">
-    <script language="javascript">
+    <!-- <script language="javascript">
         document.onmousedown = disableclick;
         status = "Right Click Disabled";
 
@@ -83,7 +83,7 @@
                 return false;
             }
         }
-    </script>
+    </script> -->
 
     <!-- Page Wrapper -->
     <div id="wrapper">
